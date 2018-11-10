@@ -1,11 +1,14 @@
+import java.util.*;
+import java.io.*;
+
 public class Driver{
   public static void main(String[] args){
     WordSearch first = new WordSearch(8, 5);
 
     // System.out.println("---Testing Constructor---");
     // System.out.println("testing toString: should print a 8-by-5 empty word search");
+    
     // System.out.println(first.toString());
-
     // System.out.println("---Testing addWordHorizontal---");
     // System.out.println("testing add YES horizontally to row 2, column 0: should return true");
     // System.out.println(first.addWordHorizontal("YES", 2, 0));
@@ -79,21 +82,23 @@ public class Driver{
     // System.out.println("word search should be the same as before");
     // System.out.println(first.toString());
 
-    WordSearch a = new WordSearch(10, 11);
-    System.out.println(a.addWordDiagonal("AHHHHHHHHHHHHHHHHH",0,0));
-    System.out.println(a);
-    System.out.println(a.addWordDiagonal("AHHHHHHHHH",0,0));
-    System.out.println(a.addWordDiagonal("AHHHHHHHHH",0,0));
-    System.out.println(a);
-    System.out.println(a.addWordHorizontal("AHHHHHH", 0, 0));
-    System.out.println(a.addWordDiagonal("H", 0, 0));
-    System.out.println(a.addWordDiagonal("HELLO", 0, 2));
-    System.out.println(a);
-    System.out.println(a.addWordDiagonal("OLLEH", 4, 6));
-    System.out.println(a);
-    System.out.println(a.addWordVertical("HHHHHH",5,1));
-    System.out.println(a);
-    System.out.println(a.addWordVertical("HELLO",0,6));
-    System.out.println(a);
+    // WordSearch a = new WordSearch(10, 11);
+    // System.out.println(a.addWordDiagonal("AHHHHHHHHHHHHHHHHH",0,0));
+    // System.out.println(a);
+    // System.out.println(a.addWordDiagonal("AHHHHHHHHH",0,0));
+    // System.out.println(a.addWordDiagonal("AHHHHHHHHH",0,0));
+    // System.out.println(a);
+    // System.out.println(a.addWordHorizontal("AHHHHHH", 0, 0));
+    // System.out.println(a.addWordDiagonal("H", 0, 0));
+    // System.out.println(a.addWordDiagonal("HELLO", 0, 2));
+    // System.out.println(a);
+    // System.out.println(a.addWordDiagonal("OLLEH", 4, 6));
+    // System.out.println(a);
+    // System.out.println(a.addWordVertical("HHHHHH",5,1));
+    // System.out.println(a);
+    // System.out.println(a.addWordVertical("HELLO",0,6));
+    // System.out.println(a);
+    try{ WordSearch a = new WordSearch(10,10,"Emotions.txt");}
+    catch(FileNotFoundException e) {e.printStackTrace();}
   }
 }
