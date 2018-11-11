@@ -51,7 +51,7 @@ public class WordSearch {
 	}
 	return x;
     }
-    public boolean addWord(int r, int c, String word, int rowIncrement, int colIncrement) {
+    private boolean addWord(int r, int c, String word, int rowIncrement, int colIncrement) {
 	int length = word.length();
 	if (rowIncrement == 0 && colIncrement == 0) {
 	    return false;
