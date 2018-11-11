@@ -4,7 +4,8 @@ public class WordSearch {
     private char[][]data;
     private int seed;
     private Random randgen;
-    private ArrayList<String> wordsToAdd, wordsAdded;
+    private ArrayList<String> wordsToAdd = new ArrayList<String>();
+    private ArrayList<String> wordsAdded = new ArrayList<String>();
     public WordSearch(int rows, int cols, String fileName, int randSeed) throws FileNotFoundException{
 	data = new char[rows][cols];
 	Scanner s = new Scanner(fileName);
@@ -13,25 +14,31 @@ public class WordSearch {
 	}
 	randgen = new Random(randSeed);
 	seed = randSeed;
+	for (int i = 0; i < data.length; i++) {
+	    for (int j = 0; j < data[i].length; j++) {
+		data[i][j] = '_';
+	    }
+	}
     }
     public WordSearch(int rows, int cols, String fileName)throws FileNotFoundException {
 	data = new char[rows][cols];
 	Scanner s = new Scanner(new File(fileName));
 	while(s.hasNext()) {
-	    wordsToAdd.add(s.next());
+	    wordsToAdd.add(s.next().toUpperCase());
 	}
-    }
-    
-    public WordSearch(int rows, int cols) {
-	data = new char[rows][cols];
-	for(int i = 0; i < data.length; i++) {
+	randgen = new Random();
+     	for (int i = 0; i < data.length; i++) {
 	    for (int j = 0; j < data[i].length; j++) {
-	        data[i][j] = '_';
+		data[i][j] = '_';
 	    }
 	}
     }
     private void clear() {
-	data = new char[1][1];
+	for (int i = 0; i < data.length; i++) {
+	    for (int j = 0; j < data[i].length; j++) {
+		data[i][j] = '_';
+	    }
+	}
     }
     public String toString() {
 	String x = "";
@@ -44,75 +51,30 @@ public class WordSearch {
 	}
 	return x;
     }
-    // public boolean addWordHorizontal(String word, int row, int col) {
-    // 	int j = 0;
-    // 	if (word.length() + col > data[row].length) {
-    // 	    return false;
-    // 	}
-    // 	for (int i = col; i < word.length()+col; i++) {
-    // 	    if (data[row][i] != word.charAt(j)) {
-    // 		if (data[row][i] != '_') {
-    // 		    return false;
-    // 		}
-    // 	    }
-    // 	    j++;
-    // 	}
-    // 	j=0;
-    // 	for(int i = col; i < word.length()+col; i++) {	   
-    // 	    data[row][i] = word.charAt(j);
-    // 	    j++;
-    // 	}
-    // 	return true;
-    // }
-    // public boolean addWordVertical(String word, int row, int col) {
-    // 	int j = 0;
-    // 	if (word.length() + row > data.length) {
-    // 	    return false;
-    // 	}
-    // 	for (int i = row; i < word.length()+row; i++) {
-    // 	    if (data[i][col] != word.charAt(j)) {
-    // 		if (data[i][col] != '_') {
-    // 		    return false;
-    // 		}
-    // 	    }
-    // 	    j++;
-    // 	}
-    // 	j=0;
-    // 	for(int i = row; i < word.length()+row; i++) {	   
-    // 	    data[i][col] = word.charAt(j);
-    // 	    j++;
-    // 	}
-    // 	return true;
-    // }
-    // public boolean addWordDiagonal(String word, int row, int col) {
-    // 	int j = 0;
-    // 	if (word.length() + row > data.length ||  word.length() + col > data[row].length) {
-    // 	    return false;
-    // 	}
-    // 	for (int x = row; x < word.length()+row; x++) {
-    // 	    if (data[x][col] != word.charAt(j)) {
-    // 		if (data[x][col] != '_') {
-    // 		    return false;
-    // 			}
-    // 	    }
-    // 	    j++;
-    // 	    col++;
-    // 	}
-    // 	j = 0;
-    // 	col -= word.length();
-    // 	for (int i = row; i < word.length()+row;i++) {
-    // 	    data[i][col] = word.charAt(j);
-    // 	    j++;
-    // 	    col++;
-    // 	}
-    // 	return true;
-    // }
-    private boolean addWord(int r, int c, String word, int rowIncrement, int colIncrement) {
+    public boolean addWord(int r, int c, String word, int rowIncrement, int colIncrement) {
+	int length = word.length();
 	if (rowIncrement == 0 && colIncrement == 0) {
 	    return false;
 	}
-	if (word.length() + Math.abs(rowIncrement) > data.length || word.length() + Math.abs(colIncrement) > data[r].length) {
+	if ((rowIncrement > 0 && length + r > data.length) || (rowIncrement < 0 && length - r > data.length) || (colIncrement > 0 && length + c > data[0].length) || (colIncrement < 0 && length-c > data[0].length)) {
 	    return false;
 	}
-	for (
+        for (int i = 0; i < length; i++) {
+	    if (data[r][c] != '_') {
+		if (data[r][c] != word.charAt(i)) {
+		    return false;
+		}
+	    }
+	    c+=colIncrement;
+	    r+=rowIncrement;
+	}
+	c += colIncrement*-word.length();
+	r += rowIncrement*-word.length();
+	for (int i = 0; i < word.length(); i++) {
+	    data[r][c] = word.charAt(i);
+	    c += colIncrement;
+	    r += rowIncrement;
+	}
+       	return true;
+    }
 }

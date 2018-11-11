@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Driver{
   public static void main(String[] args){
-    WordSearch first = new WordSearch(8, 5);
+      // WordSearch first = new WordSearch(8, 5);
 
     // System.out.println("---Testing Constructor---");
     // System.out.println("testing toString: should print a 8-by-5 empty word search");
@@ -83,22 +83,39 @@ public class Driver{
     // System.out.println(first.toString());
 
     // WordSearch a = new WordSearch(10, 11);
-    // System.out.println(a.addWordDiagonal("AHHHHHHHHHHHHHHHHH",0,0));
-    // System.out.println(a);
-    // System.out.println(a.addWordDiagonal("AHHHHHHHHH",0,0));
-    // System.out.println(a.addWordDiagonal("AHHHHHHHHH",0,0));
-    // System.out.println(a);
-    // System.out.println(a.addWordHorizontal("AHHHHHH", 0, 0));
-    // System.out.println(a.addWordDiagonal("H", 0, 0));
-    // System.out.println(a.addWordDiagonal("HELLO", 0, 2));
-    // System.out.println(a);
-    // System.out.println(a.addWordDiagonal("OLLEH", 4, 6));
-    // System.out.println(a);
-    // System.out.println(a.addWordVertical("HHHHHH",5,1));
-    // System.out.println(a);
-    // System.out.println(a.addWordVertical("HELLO",0,6));
-    // System.out.println(a);
-    try{ WordSearch a = new WordSearch(10,10,"Emotions.txt");}
+
+    try {
+	WordSearch a = new WordSearch(10,10,"Emotions.txt");
+	System.out.println(a.addWord(0,0,"AHHHHHHHHHHHHHHHHH",0,1));
+	System.out.println(a);
+	System.out.println(a.addWord(0,0,"AHHHHHHHHH",0,0));
+	System.out.println(a.addWord(0,0,"AHHHHHHHHH",1,1));
+	System.out.println(a);
+	System.out.println(a.addWord(0,0,"AHHHHHH", 1, 0));
+	//System.out.println(a.addWord("H", 0, 0));
+	//System.out.println(a.addWord("HELLO", 0, 2));
+	System.out.println(a);
+	System.out.println(a.addWord(4, 6,"HELLO", -1, -1));
+	System.out.println(a);
+	System.out.println(a.addWord(7, 5, "ONE", 1, -1));
+	System.out.println(a);
+	System.out.println(a.addWord(0, 2, "ONA", 0, -1));
+	System.out.println(a);
+	// System.out.println(a.addWord("HHHHHH",5,1));
+	// System.out.println(a);
+	// System.out.println(a.addWord("HELLO",0,6));
+	// System.out.println(a);
+    }
     catch(FileNotFoundException e) {e.printStackTrace();}
   }
 }
+
+
+
+
+
+
+
+
+
+
