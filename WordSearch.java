@@ -51,12 +51,12 @@ public class WordSearch {
 	}
 	return x;
     }
-    private boolean addWord(int r, int c, String word, int rowIncrement, int colIncrement) {
+    public boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement) {
 	int length = word.length();
 	if (rowIncrement == 0 && colIncrement == 0) {
 	    return false;
 	}
-	if ((rowIncrement > 0 && length + r > data.length) || (rowIncrement < 0 && length - r > data.length) || (colIncrement > 0 && length + c > data[0].length) || (colIncrement < 0 && length-c > data[0].length)) {
+	if ((rowIncrement > 0 && length + r > data.length) || (rowIncrement < 0 && r - length < 0) || (colIncrement > 0 && length + c > data[0].length) || (colIncrement < 0 && c - length < 0)) {
 	    return false;
 	}
         for (int i = 0; i < length; i++) {
