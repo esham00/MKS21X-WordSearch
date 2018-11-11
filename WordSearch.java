@@ -52,14 +52,14 @@ public class WordSearch {
 	return x;
     }
     public boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement) {
-	int length = word.length();
+	int length = word.length()-1;
 	if (rowIncrement == 0 && colIncrement == 0) {
 	    return false;
 	}
-	if ((rowIncrement > 0 && length + r > data.length) || (rowIncrement < 0 && r - length < 0) || (colIncrement > 0 && length + c > data[0].length) || (colIncrement < 0 && c - length < 0)) {
+	if ((rowIncrement > 0 && length + r >= data.length) || (rowIncrement < 0 && r - length < 0) || (colIncrement > 0 && length + c >= data[0].length) || (colIncrement < 0 && c - length < 0)) {
 	    return false;
 	}
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < word.length(); i++) {
 	    if (data[r][c] != '_') {
 		if (data[r][c] != word.charAt(i)) {
 		    return false;
