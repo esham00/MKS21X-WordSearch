@@ -86,25 +86,25 @@ public class Driver{
 
     try {
 	WordSearch a = new WordSearch(10,10,"Emotions.txt");
-	System.out.println(a.addWord(0,0,"AHHHHHHHHHHHHHHHHH",0,1));
-	System.out.println(a);
-	System.out.println(a.addWord(0,0,"AHHHHHHHHH",0,0));
-	System.out.println(a.addWord(0,0,"AHHHHHHHHH",1,1));
-	System.out.println(a);
-	System.out.println(a.addWord(0,0,"AHHHHHH", 1, 0));
-	//System.out.println(a.addWord("H", 0, 0));
-	//System.out.println(a.addWord("HELLO", 0, 2));
-	System.out.println(a);
-	System.out.println(a.addWord(4, 6,"HELLO", -1, -1));
-	System.out.println(a);
-	System.out.println(a.addWord(7, 5, "ONE", 1, -1));
-	System.out.println(a);
-	System.out.println(a.addWord(0, 2, "ONA", 0, -1));
-	System.out.println(a);
-	// System.out.println(a.addWord("HHHHHH",5,1));
+	// System.out.println(a.addWord(0,0,"AHHHHHHHHHHHHHHHHH",0,1));
 	// System.out.println(a);
-	// System.out.println(a.addWord("HELLO",0,6));
+	// System.out.println(a.addWord(0,0,"AHHHHHHHHH",0,0));
+	// System.out.println(a.addWord(0,0,"AHHHHHHHHH",1,1));
 	// System.out.println(a);
+	// System.out.println(a.addWord(0,0,"AHHHHHH", 1, 0));
+	// //System.out.println(a.addWord("H", 0, 0));
+	// //System.out.println(a.addWord("HELLO", 0, 2));
+	// System.out.println(a);
+	// System.out.println(a.addWord(4, 6,"HELLO", -1, -1));
+	// System.out.println(a);
+	// System.out.println(a.addWord(7, 5, "ONE", 1, -1));
+	// System.out.println(a);
+	// System.out.println(a.addWord(0, 2, "ONA", 0, -1));
+	// System.out.println(a);
+	// // System.out.println(a.addWord("HHHHHH",5,1));
+	// // System.out.println(a);
+	// // System.out.println(a.addWord("HELLO",0,6));
+	// // System.out.println(a);
     }
     catch(FileNotFoundException e) {e.printStackTrace();}
   }
