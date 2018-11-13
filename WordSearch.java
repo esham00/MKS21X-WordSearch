@@ -22,7 +22,9 @@ public class WordSearch {
 		data[i][j] = '_';
 	    }
 	}
-	addAllWords();
+	for (int i = 0; i < 10; i++) {
+	  addAllWords());
+	}     
     }
     public WordSearch(int rows, int cols, String fileName)throws FileNotFoundException {
 	if (rows <= 0 || cols <= 0) {
@@ -39,7 +41,9 @@ public class WordSearch {
 		data[i][j] = '_';
 	    }
 	}
-	System.out.println(addAllWords());
+	for (int i = 0; i < 10; i++) {
+	  addAllWords());
+	}
     }
     public void clear() {
 	for (int i = 0; i < data.length; i++) {
@@ -92,10 +96,13 @@ public class WordSearch {
     public boolean addAllWords() {
 	for (int i = 0; i < wordsToAdd.size(); i++) {
 	    String s = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
-	    int length = wordsToAdd.get(i).length();
+	    if (s.length() > data.length || s.length() > data[0].length) {
+		throw new IllegalArgumentException(s + " is too large to fit on the word search");
+	    }
 	    int rowIncrement = randgen.nextInt() % 2;
 	    int columnIncrement = randgen.nextInt() % 2;
-	    for (int j = 0; j < 500; j++) {
+	    int length = s.length();
+	    for (int j = 0; j < 1000; j++) {
 		int row = 0;
 		int column = 0;
 		if (rowIncrement < 0) {
@@ -114,7 +121,7 @@ public class WordSearch {
 		    addWord(row, column, s, rowIncrement, columnIncrement);
 		    wordsAdded.add(s);
 		    wordsToAdd.remove(s);
-		    j = 500;
+		    j = 5000;
 		}
 	    }
 	}
