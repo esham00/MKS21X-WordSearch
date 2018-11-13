@@ -7,6 +7,9 @@ public class WordSearch {
     private ArrayList<String> wordsToAdd = new ArrayList<String>();
     private ArrayList<String> wordsAdded = new ArrayList<String>();
     public WordSearch(int rows, int cols, String fileName, int randSeed) throws FileNotFoundException{
+	if (rows <= 0 || cols <= 0) {
+	    throw new IllegalArgumentException();
+	}
 	data = new char[rows][cols];
 	Scanner s = new Scanner(fileName);
 	while(s.hasNext()) {
@@ -21,6 +24,9 @@ public class WordSearch {
 	}
     }
     public WordSearch(int rows, int cols, String fileName)throws FileNotFoundException {
+	if (rows <= 0 || cols <= 0) {
+	    throw new IllegalArgumentException();
+	}	
 	data = new char[rows][cols];
 	Scanner s = new Scanner(new File(fileName));
 	while(s.hasNext()) {
@@ -51,7 +57,7 @@ public class WordSearch {
 	}
 	return x;
     }
-    public boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement) {
+    private boolean addWord(int r, int c, String word, int rowIncrement, int colIncrement) {
 	int length = word.length()-1;
 	if (rowIncrement == 0 && colIncrement == 0) {
 	    return false;
@@ -76,5 +82,46 @@ public class WordSearch {
 	    r += rowIncrement;
 	}
        	return true;
+    }
+    public boolean addAllWords() {
+        for (int i = 0; i < wordsToAdd.size()-1;i++) {
+	    if (wordsToAdd.get(i+1).length() > wordsToAdd.get(i).length()) {
+		String s = wordsToAdd.get(i);
+		wordsToAdd.set(i, wordsToAdd.get(i+1));
+		wordsToAdd.set(i+1, s);
+	    }
+	}
+	for (int i = 0; i < wordsToAdd.size(); i++) {
+	    int length = wordsToAdd.get(i).length();
+	    for (int j = 0; j < (data.length * data.length); j++) {
+		int row = 0;
+		int column = 0;
+		int rowIncrement = randgen.nextInt() % 2;
+		int columnIncrement = randgen.nextInt() % 2;
+		if (rowIncrement < 0) {
+		    row  = Math.abs(randgen.nextInt() % (data.length - length)) + length;
+		}
+		if (rowIncrement > 0) {
+		    row = Math.abs(randgen.nextInt() % (data.length - length));
+		}
+		if (columnIncrement < 0) {
+		    column = Math.abs(randgen.nextInt() % (data[0].length-length)) + length;
+		}
+		if (columnIncrement > 0) {
+		    column = Math.abs(randgen.nextInt() % (data[0].length-length));
+		}
+		if (addWord(row, column, wordsToAdd.get(i), rowIncrement, columnIncrement) == true) {
+		    addWord(row, column, wordsToAdd.get(i), rowIncrement, columnIncrement);
+		    wordsAdded.add(wordsToAdd.get(i));
+		    j = 200;
+		}
+	    }
+	}
+	if (wordsToAdd.size() > wordsAdded.size()) {
+	    return false;
+	}
+	else {
+	    return true;
+	}
     }
 }
