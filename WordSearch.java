@@ -23,7 +23,7 @@ public class WordSearch {
 	    }
 	}
 	for (int i = 0; i < 10; i++) {
-	  addAllWords());
+	  addAllWords();
 	}     
     }
     public WordSearch(int rows, int cols, String fileName)throws FileNotFoundException {
@@ -42,7 +42,7 @@ public class WordSearch {
 	    }
 	}
 	for (int i = 0; i < 10; i++) {
-	  addAllWords());
+	  addAllWords();
 	}
     }
     public void clear() {
@@ -102,7 +102,7 @@ public class WordSearch {
 	    int rowIncrement = randgen.nextInt() % 2;
 	    int columnIncrement = randgen.nextInt() % 2;
 	    int length = s.length();
-	    for (int j = 0; j < 1000; j++) {
+	    for (int j = 0; j < 200; j++) {
 		int row = 0;
 		int column = 0;
 		if (rowIncrement < 0) {
