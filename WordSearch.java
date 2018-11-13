@@ -39,14 +39,18 @@ public class WordSearch {
 		data[i][j] = '_';
 	    }
 	}
-	addAllWords();
+	System.out.println(addAllWords());
     }
-    private void clear() {
+    public void clear() {
 	for (int i = 0; i < data.length; i++) {
 	    for (int j = 0; j < data[i].length; j++) {
 		data[i][j] = '_';
 	    }
 	}
+	for (int i = 0; i < wordsAdded.size(); i++) {
+	    wordsToAdd.add(wordsAdded.get(i));
+	}
+	wordsAdded.clear();
     }
     public String toString() {
 	String x = "";
@@ -91,7 +95,7 @@ public class WordSearch {
 	    int length = wordsToAdd.get(i).length();
 	    int rowIncrement = randgen.nextInt() % 2;
 	    int columnIncrement = randgen.nextInt() % 2;
-	    for (int j = 0; j < 100; j++) {
+	    for (int j = 0; j < 500; j++) {
 		int row = 0;
 		int column = 0;
 		if (rowIncrement < 0) {
@@ -110,15 +114,15 @@ public class WordSearch {
 		    addWord(row, column, s, rowIncrement, columnIncrement);
 		    wordsAdded.add(s);
 		    wordsToAdd.remove(s);
-		    j = 200;
+		    j = 500;
 		}
 	    }
 	}
-	if (wordsToAdd.size() > wordsAdded.size()) {
-	    return false;
+	if (wordsToAdd.size() == 0) {
+	    return true;
 	}
 	else {
-	    return true;
+	    return false;
 	}
     }
 }
