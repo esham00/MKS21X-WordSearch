@@ -84,20 +84,14 @@ public class WordSearch {
        	return true;
     }
     public boolean addAllWords() {
-        for (int i = 0; i < wordsToAdd.size()-1;i++) {
-	    if (wordsToAdd.get(i+1).length() > wordsToAdd.get(i).length()) {
-		String s = wordsToAdd.get(i);
-		wordsToAdd.set(i, wordsToAdd.get(i+1));
-		wordsToAdd.set(i+1, s);
-	    }
-	}
 	for (int i = 0; i < wordsToAdd.size(); i++) {
+	    String s = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
 	    int length = wordsToAdd.get(i).length();
-	    for (int j = 0; j < (data.length * data.length); j++) {
+	    int rowIncrement = randgen.nextInt() % 2;
+	    int columnIncrement = randgen.nextInt() % 2;
+	    for (int j = 0; j < 100; j++) {
 		int row = 0;
 		int column = 0;
-		int rowIncrement = randgen.nextInt() % 2;
-		int columnIncrement = randgen.nextInt() % 2;
 		if (rowIncrement < 0) {
 		    row  = Math.abs(randgen.nextInt() % (data.length - length)) + length;
 		}
@@ -110,12 +104,14 @@ public class WordSearch {
 		if (columnIncrement > 0) {
 		    column = Math.abs(randgen.nextInt() % (data[0].length-length));
 		}
-		if (addWord(row, column, wordsToAdd.get(i), rowIncrement, columnIncrement) == true) {
-		    addWord(row, column, wordsToAdd.get(i), rowIncrement, columnIncrement);
-		    wordsAdded.add(wordsToAdd.get(i));
+		if (addWord(row, column, s, rowIncrement, columnIncrement) == true) {
+		    addWord(row, column, s, rowIncrement, columnIncrement);
+		    wordsAdded.add(s);
+		    wordsToAdd.remove(s);
 		    j = 200;
 		}
 	    }
+	    i = 0;
 	}
 	if (wordsToAdd.size() > wordsAdded.size()) {
 	    return false;
