@@ -111,7 +111,6 @@ public class WordSearch {
 		    j = 200;
 		}
 	    }
-	    i = 0;
 	}
 	if (wordsToAdd.size() > wordsAdded.size()) {
 	    return false;
