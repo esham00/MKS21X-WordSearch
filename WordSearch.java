@@ -22,6 +22,7 @@ public class WordSearch {
 		data[i][j] = '_';
 	    }
 	}
+	addAllWords();
     }
     public WordSearch(int rows, int cols, String fileName)throws FileNotFoundException {
 	if (rows <= 0 || cols <= 0) {
@@ -38,6 +39,7 @@ public class WordSearch {
 		data[i][j] = '_';
 	    }
 	}
+	addAllWords();
     }
     private void clear() {
 	for (int i = 0; i < data.length; i++) {
