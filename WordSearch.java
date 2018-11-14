@@ -6,9 +6,9 @@ public class WordSearch {
     private Random randgen;
     private ArrayList<String> wordsToAdd = new ArrayList<String>();
     private ArrayList<String> wordsAdded = new ArrayList<String>();
-    public WordSearch(int rows, int cols, String fileName, int randSeed) throws FileNotFoundException{
+    public WordSearch(int rows, int cols, String fileName, int randSeed, boolean answer) throws FileNotFoundException{
 	if (rows <= 0 || cols <= 0) {
-	    throw new IllegalArgumentException();
+	    throw new IllegalArgumentException("A wordsearch cannot have negative or zero rows and columnns.");
 	}
 	data = new char[rows][cols];
 	Scanner s = new Scanner(new File(fileName));
@@ -25,36 +25,9 @@ public class WordSearch {
 	for (int i = 0; i < 10; i++) {
 	  addAllWords();
 	}
-    }
-    public WordSearch(int rows, int cols, String fileName)throws FileNotFoundException {
-	if (rows <= 0 || cols <= 0) {
-	    throw new IllegalArgumentException();
-	}	
-	data = new char[rows][cols];
-	Scanner s = new Scanner(new File(fileName));
-	while(s.hasNext()) {
-	    wordsToAdd.add(s.next().toUpperCase());
+      	if (answer==false) {
+	    fill();
 	}
-	randgen = new Random();
-     	for (int i = 0; i < data.length; i++) {
-	    for (int j = 0; j < data[i].length; j++) {
-		data[i][j] = '_';
-	    }
-	}
-	for (int i = 0; i < 10; i++) {
-	  addAllWords();
-	}
-    }
-    public void clear() {
-	for (int i = 0; i < data.length; i++) {
-	    for (int j = 0; j < data[i].length; j++) {
-		data[i][j] = '_';
-	    }
-	}
-	for (int i = 0; i < wordsAdded.size(); i++) {
-	    wordsToAdd.add(wordsAdded.get(i));
-	}
-	wordsAdded.clear();
     }
     public String toString() {
 	String x = "";
@@ -146,30 +119,31 @@ public class WordSearch {
 	    int rows = Integer.parseInt(args[0]);
 	    int columns = Integer.parseInt(args[1]);
 	    String FILEname = args[2];
-	    WordSearch generated = new WordSearch(rows, columns, FILEname);
+	    Random number = new Random();
+	    int seed = number.nextInt() % 10000;
+	    WordSearch generated = new WordSearch(rows, columns, FILEname, seed, false);
 	    if (args.length > 3) {
 		if (args.length > 4) {
 		    if (args[4].equals("key")) {
-			int seed = Integer.parseInt(args[3]);
-			generated = new WordSearch(rows, columns, FILEname, seed);
+		        seed = Integer.parseInt(args[3]);
+			generated = new WordSearch(rows, columns, FILEname, seed, true);
 		    }
 		    else {
-			throw new IllegalArgumentException();
+			seed = Integer.parseInt(args[3]);
+			generated = new WordSearch(rows, columns, FILEname, seed,false);
 		    }
 		}
 		if (args.length == 4) {
-		    int seed = Integer.parseInt(args[3]);		
-		    generated = new WordSearch(rows, columns, FILEname, seed);
-		    generated.fill();
+		    seed = Integer.parseInt(args[3]);		
+		    generated = new WordSearch(rows, columns, FILEname, seed, false);
 		}
 	    }
 	    if (args.length == 3) {
-		generated = new WordSearch(rows, columns, FILEname);
-		generated.fill();
+		generated = new WordSearch(rows, columns, FILEname, seed, false);
 	    }
 	    System.out.print(generated);
 	} catch (FileNotFoundException e) {
-	    System.out.println("failed");
+	    e.printStackTrace();
 	}
     }
 }
