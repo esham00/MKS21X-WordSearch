@@ -11,9 +11,9 @@ public class WordSearch {
 	    throw new IllegalArgumentException();
 	}
 	data = new char[rows][cols];
-	Scanner s = new Scanner(fileName);
+	Scanner s = new Scanner(new File(fileName));
 	while(s.hasNext()) {
-	    wordsToAdd.add(s.next());
+	    wordsToAdd.add(s.next().toUpperCase());
 	}
 	randgen = new Random(randSeed);
 	seed = randSeed;
@@ -24,7 +24,7 @@ public class WordSearch {
 	}
 	for (int i = 0; i < 10; i++) {
 	  addAllWords();
-	}     
+	}
     }
     public WordSearch(int rows, int cols, String fileName)throws FileNotFoundException {
 	if (rows <= 0 || cols <= 0) {
@@ -130,6 +130,46 @@ public class WordSearch {
 	}
 	else {
 	    return false;
+	}
+    }
+    public void fill() {
+	for (int i = 0; i < data.length; i++) {
+	    for (int j = 0; j < data[0].length; j++) {
+		if (data[i][j] == '_') {
+		    data[i][j] = (char)(Math.abs(randgen.nextInt() % 26) + 65.0);
+		}
+	    }
+	}
+    }
+    public static void main(String args[]) {
+	try {
+	    int rows = Integer.parseInt(args[0]);
+	    int columns = Integer.parseInt(args[1]);
+	    String FILEname = args[2];
+	    WordSearch generated = new WordSearch(rows, columns, FILEname);
+	    if (args.length > 3) {
+		if (args.length > 4) {
+		    if (args[4].equals("key")) {
+			int seed = Integer.parseInt(args[3]);
+			generated = new WordSearch(rows, columns, FILEname, seed);
+		    }
+		    else {
+			throw new IllegalArgumentException();
+		    }
+		}
+		if (args.length == 4) {
+		    int seed = Integer.parseInt(args[3]);		
+		    generated = new WordSearch(rows, columns, FILEname, seed);
+		    generated.fill();
+		}
+	    }
+	    if (args.length == 3) {
+		generated = new WordSearch(rows, columns, FILEname);
+		generated.fill();
+	    }
+	    System.out.print(generated);
+	} catch (FileNotFoundException e) {
+	    System.out.println("failed");
 	}
     }
 }
