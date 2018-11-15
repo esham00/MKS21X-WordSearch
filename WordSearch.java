@@ -28,6 +28,9 @@ public class WordSearch {
       	if (answer==false) {
 	    fill();
 	}
+	if (answer == true) {
+	    answerKey();
+	}
     }
     public String toString() {
 	String x = "";
@@ -39,6 +42,15 @@ public class WordSearch {
 	    x += "|\n";
 	}
 	return x;
+    }
+    public void  answerKey() {
+	for(int i = 0; i < data.length; i++) {
+	    for (int j = 0; j < data[i].length; j++) {
+		if (data[i][j] == '_') {
+		    data[i][j] = ' ';
+		}
+	    }
+	}
     }
     private boolean addWord(int r, int c, String word, int rowIncrement, int colIncrement) {
 	int length = word.length()-1;
@@ -115,6 +127,17 @@ public class WordSearch {
 	}
     }
     public static void main(String args[]) {
+	if (args.length < 3) {
+	    if (args.length < 1) {
+		System.out.println("Please input the number of rows you want your wordsearch to have");
+		System.out.println("Please input the number of columns you want your wordsearch to have");
+	    }
+	    if (args.length == 1) {
+		System.out.println("Please input the number of columns you want your wordsearch to have");
+	    }
+	    System.out.println("Please input the file with the words you want to upload (with the type like file.txt)");
+	    System.exit(1);
+	}
 	try {
 	    int rows = Integer.parseInt(args[0]);
 	    int columns = Integer.parseInt(args[1]);
@@ -139,11 +162,13 @@ public class WordSearch {
 		}
 	    }
 	    if (args.length == 3) {
+		System.out.println("Your seed is " + seed);
 		generated = new WordSearch(rows, columns, FILEname, seed, false);
 	    }
 	    System.out.print(generated);
 	} catch (FileNotFoundException e) {
-	    e.printStackTrace();
+	    System.out.println("Please input the file with the words you want to upload (with the type like file.txt)");
+	    System.exit(1);
 	}
     }
 }
