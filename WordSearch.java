@@ -8,7 +8,7 @@ public class WordSearch {
     private ArrayList<String> wordsAdded = new ArrayList<String>();
     public WordSearch(int rows, int cols, String fileName, int randSeed, boolean answer) throws FileNotFoundException{
 	if (rows <= 0 || cols <= 0) {
-	    throw new IllegalArgumentException("A wordsearch cannot have negative or zero rows and columnns.");
+	    throw new IllegalArgumentException();
 	}
 	data = new char[rows][cols];
 	Scanner s = new Scanner(new File(fileName));
@@ -41,6 +41,9 @@ public class WordSearch {
 	    }
 	    x += "|\n";
 	}
+	x += "\nWords:";
+	for (int i = 0; i < wordsAdded.length; i++) {
+	    
 	return x;
     }
     public void  answerKey() {
@@ -127,23 +130,12 @@ public class WordSearch {
 	}
     }
     public static void main(String args[]) {
-	if (args.length < 3) {
-	    if (args.length < 1) {
-		System.out.println("Please input the number of rows you want your wordsearch to have");
-		System.out.println("Please input the number of columns you want your wordsearch to have");
-	    }
-	    if (args.length == 1) {
-		System.out.println("Please input the number of columns you want your wordsearch to have");
-	    }
-	    System.out.println("Please input the file with the words you want to upload (with the type like file.txt)");
-	    System.exit(1);
-	}
 	try {
 	    int rows = Integer.parseInt(args[0]);
 	    int columns = Integer.parseInt(args[1]);
 	    String FILEname = args[2];
 	    Random number = new Random();
-	    int seed = number.nextInt() % 10000;
+	    int seed = Math.abs(number.nextInt()) % 10001;
 	    WordSearch generated = new WordSearch(rows, columns, FILEname, seed, false);
 	    if (args.length > 3) {
 		if (args.length > 4) {
@@ -156,10 +148,10 @@ public class WordSearch {
 			generated = new WordSearch(rows, columns, FILEname, seed,false);
 		    }
 		}
-		if (args.length == 4) {
+	    }
+	    if (args.length == 4) {
 		    seed = Integer.parseInt(args[3]);		
 		    generated = new WordSearch(rows, columns, FILEname, seed, false);
-		}
 	    }
 	    if (args.length == 3) {
 		System.out.println("Your seed is " + seed);
@@ -168,7 +160,22 @@ public class WordSearch {
 	    System.out.print(generated);
 	} catch (FileNotFoundException e) {
 	    System.out.println("Please input the file with the words you want to upload (with the type like file.txt)");
-	    System.exit(1);
+	}catch (ArrayIndexOutOfBoundsException e) {
+	if (args.length < 3) {
+		if (args.length < 1) {
+		    System.out.println("Please input the number of rows you want your wordsearch to have");
+		    System.out.println("Please input the number of columns you want your wordsearch to have");
+		}
+		if (args.length == 1) {
+		    System.out.println("Please input the number of columns you want your wordsearch to have");
+		}
+		System.out.println("Please input the file with the words you want to upload(with the type like file.txt)");
+		System.out.println("If you would like to, input the seed you desire");
+		System.out.println("If you would like to, input \"key\" if you would like the answer");
+		System.out.println("Your format should be: row, column, file, seed, key");
+	}
+	}catch(IllegalArgumentException e) {
+	    System.out.println("Your wordsearch cannot have negative or zero rows and columns");
 	}
     }
 }
