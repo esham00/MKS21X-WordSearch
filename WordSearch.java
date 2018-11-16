@@ -41,12 +41,17 @@ public class WordSearch {
 	    }
 	    x += "|\n";
 	}
-	x += "\nWords:";
-	for (int i = 0; i < wordsAdded.length; i++) {
-	    
+	x += "Words:";
+	for (int i = 0; i < wordsAdded.size(); i++) {
+	    if (i == wordsAdded.size()-1) {
+		x += wordsAdded.get(i);
+	    }
+	    else {x +=  wordsAdded.get(i) + ",";}
+	}
+	x += " (seed:" + seed + ")\n";
 	return x;
     }
-    public void  answerKey() {
+    public void answerKey() {
 	for(int i = 0; i < data.length; i++) {
 	    for (int j = 0; j < data[i].length; j++) {
 		if (data[i][j] == '_') {
@@ -94,16 +99,29 @@ public class WordSearch {
 		int row = 0;
 		int column = 0;
 		if (rowIncrement < 0) {
-		    row  = Math.abs(randgen.nextInt() % (data.length - length)) + length;
+		    if (data.length - length == 0) {
+			row = length;
+		    }
+		    else {row  = Math.abs(randgen.nextInt() % (data.length - length)) + length;}
 		}
 		if (rowIncrement > 0) {
+		    if (data.length - length == 0) {
+			row = 0;
+		    } else {
 		    row = Math.abs(randgen.nextInt() % (data.length - length));
+		    }
 		}
 		if (columnIncrement < 0) {
-		    column = Math.abs(randgen.nextInt() % (data[0].length-length)) + length;
+		    if (data[0].length - length == 0) {
+			column = length;
+		    } else {
+			column = Math.abs(randgen.nextInt() % (data[0].length-length)) + length;}
 		}
 		if (columnIncrement > 0) {
-		    column = Math.abs(randgen.nextInt() % (data[0].length-length));
+		    if (data[0].length - length == 0) {
+			column = 0;
+		    } else {
+			column = Math.abs(randgen.nextInt() % (data[0].length-length));}
 		}
 		if (addWord(row, column, s, rowIncrement, columnIncrement) == true) {
 		    addWord(row, column, s, rowIncrement, columnIncrement);
@@ -131,6 +149,7 @@ public class WordSearch {
     }
     public static void main(String args[]) {
 	try {
+	    System.out.println("Directions : usage: java WordSearch [rows cols filename [randomSeed [answers]]]");
 	    int rows = Integer.parseInt(args[0]);
 	    int columns = Integer.parseInt(args[1]);
 	    String FILEname = args[2];
@@ -154,7 +173,6 @@ public class WordSearch {
 		    generated = new WordSearch(rows, columns, FILEname, seed, false);
 	    }
 	    if (args.length == 3) {
-		System.out.println("Your seed is " + seed);
 		generated = new WordSearch(rows, columns, FILEname, seed, false);
 	    }
 	    System.out.print(generated);
@@ -175,7 +193,11 @@ public class WordSearch {
 		System.out.println("Your format should be: row, column, file, seed, key");
 	}
 	}catch(IllegalArgumentException e) {
-	    System.out.println("Your wordsearch cannot have negative or zero rows and columns");
+	    if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
+		System.out.println("Your wordsearch cannot have negative or zero rows and columns");}
+	    else {
+		System.out.println("Your seed must be an integer");
+	    }
 	}
     }
 }
