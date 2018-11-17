@@ -86,7 +86,7 @@ public class WordSearch {
 	}
        	return true;
     }
-    public boolean addAllWords() {
+    public void addAllWords() {
 	for (int i = 0; i < wordsToAdd.size(); i++) {
 	    String s = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
 	    if (s.length() > data.length || s.length() > data[0].length) {
@@ -99,26 +99,26 @@ public class WordSearch {
 		int row = 0;
 		int column = 0;
 		if (rowIncrement < 0) {
-		    if (data.length - length == 0) {
-			row = length;
+		    if (data.length - s.length() == 0) {
+			row = data.length-1;
 		    }
 		    else {row  = Math.abs(randgen.nextInt() % (data.length - length)) + length;}
 		}
 		if (rowIncrement > 0) {
-		    if (data.length - length == 0) {
+		    if (data.length - s.length() == 0) {
 			row = 0;
 		    } else {
 		    row = Math.abs(randgen.nextInt() % (data.length - length));
 		    }
 		}
 		if (columnIncrement < 0) {
-		    if (data[0].length - length == 0) {
-			column = length;
+		    if (data[0].length - s.length() == 0) {
+			column = data[0].length-1;
 		    } else {
 			column = Math.abs(randgen.nextInt() % (data[0].length-length)) + length;}
 		}
 		if (columnIncrement > 0) {
-		    if (data[0].length - length == 0) {
+		    if (data[0].length - s.length() == 0) {
 			column = 0;
 		    } else {
 			column = Math.abs(randgen.nextInt() % (data[0].length-length));}
@@ -130,12 +130,6 @@ public class WordSearch {
 		    j = 5000;
 		}
 	    }
-	}
-	if (wordsToAdd.size() == 0) {
-	    return true;
-	}
-	else {
-	    return false;
 	}
     }
     public void fill() {
@@ -196,8 +190,10 @@ public class WordSearch {
 	    if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
 		System.out.println("Your wordsearch cannot have negative or zero rows and columns");}
 	    else {
-		System.out.println("Your seed must be an integer");
+		System.out.println(e.getMessage());
 	    }
-	}
+	}// catch(NumberFormatException e) {
+	//     System.out.println(e.getMessage());
+	// }
     }
 }
