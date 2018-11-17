@@ -96,8 +96,8 @@ public class WordSearch {
 	    int columnIncrement = randgen.nextInt() % 2;
 	    int length = s.length();
 	    for (int j = 0; j < 200; j++) {
-		int row = 0;
-		int column = 0;
+		int row = randgen.nextInt()%2;
+		int column = randgen.nextInt()%2;
 		if (rowIncrement < 0) {
 		    if (data.length - length == 0) {
 			row = length;
@@ -154,7 +154,7 @@ public class WordSearch {
 	    int columns = Integer.parseInt(args[1]);
 	    String FILEname = args[2];
 	    Random number = new Random();
-	    int seed = Math.abs(number.nextInt()) % 10001;
+	    int seed = (int)(Math.abs(number.nextInt()) % 10001);
 	    WordSearch generated = new WordSearch(rows, columns, FILEname, seed, false);
 	    if (args.length > 3) {
 		if (args.length > 4) {
@@ -168,18 +168,14 @@ public class WordSearch {
 		    }
 		}
 	    }
-	    if (args.length == 4) {
-		    seed = Integer.parseInt(args[3]);		
-		    generated = new WordSearch(rows, columns, FILEname, seed, false);
-	    }
 	    if (args.length == 3) {
 		generated = new WordSearch(rows, columns, FILEname, seed, false);
 	    }
-	    System.out.print(generated);
+	    System.out.println(generated);
 	} catch (FileNotFoundException e) {
 	    System.out.println("Please input the file with the words you want to upload (with the type like file.txt)");
 	}catch (ArrayIndexOutOfBoundsException e) {
-	if (args.length < 3) {
+	    if (args.length < 3) {
 		if (args.length < 1) {
 		    System.out.println("Please input the number of rows you want your wordsearch to have");
 		    System.out.println("Please input the number of columns you want your wordsearch to have");
@@ -188,7 +184,7 @@ public class WordSearch {
 		    System.out.println("Please input the number of columns you want your wordsearch to have");
 		}
 		System.out.println("Please input the file with the words you want to upload(with the type like file.txt)");
-		System.out.println("If you would like to, input the seed you desire");
+		System.out.println("If you would like to, input the seed (integer) you desire");
 		System.out.println("If you would like to, input \"key\" if you would like the answer");
 		System.out.println("Your format should be: row, column, file, seed, key");
 	}
