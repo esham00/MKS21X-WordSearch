@@ -103,13 +103,13 @@ public class WordSearch {
 		int row = 0;
 		int column = 0;
 		if (rowIncrement < 0) {
-		    if (data.length - s.length() == 0) {
+		    if (data.length - length == 0) {
 			row = data.length-1;
 		    }
 		    else {row  = Math.abs(randgen.nextInt() % (data.length - length)) + length;}
 		}
 		if (rowIncrement > 0) {
-		    if (data.length - s.length() == 0) {
+		    if (data.length - length == 0) {
 			row = 0;
 		    } else {
 		    row = Math.abs(randgen.nextInt() % (data.length - length));
@@ -175,7 +175,7 @@ public class WordSearch {
 	    }
 	    System.out.print(generated);
 	} catch (FileNotFoundException e) {
-	    System.out.println("Please input the file with the words you want to upload (with the type like file.txt)");
+	    System.out.println("Your file cannot be found. Please input the file with the words you want to upload (with the type like file.txt)");
 	}catch (ArrayIndexOutOfBoundsException e) {
 	if (args.length < 3) {
 		if (args.length < 1) {
@@ -190,6 +190,8 @@ public class WordSearch {
 		System.out.println("If you would like to, input \"key\" if you would like the answer");
 		System.out.println("Your format should be: row, column, file, seed, key");
 	}
+	}catch(NumberFormatException e) {
+	    System.out.println("Your rows, columns, and seeds must be an integer.");
 	}catch(IllegalArgumentException e) {
 	    if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
 		System.out.println("Your wordsearch cannot have negative or zero rows and columns");}
